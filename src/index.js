@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Index from "./routes/Index";
 import Contact from "./routes/Contact";
 import Root from "./routes/Root";
+import { fetchPosts } from "./api";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,9 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Index />,
+        loader() {
+          return fetchPosts();
+        },
       },
       {
         path: "/contact",
