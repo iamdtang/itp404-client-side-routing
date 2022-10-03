@@ -1,4 +1,5 @@
-import { Link, Outlet, useLoaderData } from "react-router-dom";
+import { NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { isLinkActive } from "../utils";
 
 export default function Post() {
   const post = useLoaderData();
@@ -12,14 +13,21 @@ export default function Post() {
 
       <ul className="nav nav-tabs mb-3">
         <li className="nav-item">
-          <Link to={`/posts/${post.id}/comments`} className="nav-link">
+          <NavLink
+            to={`/posts/${post.id}/comments`}
+            className={isLinkActive}
+            end
+          >
             Comments ({post.comments.length})
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to={`/posts/${post.id}/comments/new`} className="nav-link">
+          <NavLink
+            to={`/posts/${post.id}/comments/new`}
+            className={isLinkActive}
+          >
             Leave a Comment
-          </Link>
+          </NavLink>
         </li>
       </ul>
 
