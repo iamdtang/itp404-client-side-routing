@@ -7,8 +7,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Index from "./routes/Index";
 import Contact from "./routes/Contact";
 import Root from "./routes/Root";
-import { fetchPost, fetchPosts } from "./api";
+import { fetchCommentsForPost, fetchPost, fetchPosts } from "./api";
 import Post from "./routes/Post";
+import Comments from "./routes/Post/Comments";
+import LeaveComment from "./routes/Post/LeaveComment";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,23 @@ const router = createBrowserRouter([
           return fetchPost(params.id);
         },
         element: <Post />,
+        children: [
+          {
+            path: "/posts/:id",
+            element: <p>Make some new friends 💬</p>,
+          },
+          {
+            path: "/posts/:id/comments",
+            element: <Comments />,
+            loader({ params }) {
+              return fetchCommentsForPost(params.id);
+            },
+          },
+          {
+            path: "/posts/:id/comments/new",
+            element: <LeaveComment />,
+          },
+        ],
       },
     ],
   },
