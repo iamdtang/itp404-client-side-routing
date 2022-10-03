@@ -13,3 +13,9 @@ export function fetchPost(id) {
     `https://jsonplaceholder.typicode.com/posts/${id}?_expand=user&_embed=comments`
   );
 }
+
+export function fetchCommentsForPost(postId) {
+  return _fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+  );
+}
