@@ -5,17 +5,36 @@ function _fetch(url) {
 }
 
 export function fetchPosts() {
-  return _fetch("https://jsonplaceholder.typicode.com/posts?_expand=user");
+  return _fetch(
+    "https://json-server-posts-api.herokuapp.com/api/posts?_expand=user"
+  );
 }
 
 export function fetchPost(id) {
   return _fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}?_expand=user&_embed=comments`
+    `https://json-server-posts-api.herokuapp.com/api/posts/${id}?_expand=user&_embed=comments`
   );
 }
 
 export function fetchCommentsForPost(postId) {
   return _fetch(
-    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+    `https://json-server-posts-api.herokuapp.com/api/posts/${postId}/comments`
   );
+}
+
+export function saveComment(comment, postId) {
+  return fetch(
+    `https://json-server-posts-api.herokuapp.com/api/posts/${postId}/comments`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        body: comment,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
 }
