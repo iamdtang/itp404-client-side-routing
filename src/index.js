@@ -17,10 +17,12 @@ import {
   fetchPost,
   fetchPosts,
   saveComment,
+  updatePost,
 } from "./api";
 import Post from "./routes/Post";
 import Comments from "./routes/Post/Comments";
 import LeaveComment from "./routes/Post/LeaveComment";
+import EditPost from "./routes/EditPost";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,26 @@ const router = createBrowserRouter([
             },
           },
         ],
+      },
+      {
+        path: "/posts/:id/edit",
+        element: <EditPost />,
+        loader({ params }) {
+          return fetchPost(params.id);
+        },
+        action({ params, request }) {
+          return request.formData().then((formData) => {
+            return updatePost(
+              {
+                title: formData.get("title"),
+                body: formData.get("body"),
+              },
+              params.id
+            ).then(() => {
+              return redirect(`/posts/${params.id}`);
+            });
+          });
+        },
       },
     ],
   },
