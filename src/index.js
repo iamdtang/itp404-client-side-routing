@@ -12,6 +12,7 @@ import Index from "./routes/Index";
 import Contact from "./routes/Contact";
 import Root from "./routes/Root";
 import {
+  deleteComment,
   fetchCommentsForPost,
   fetchPost,
   fetchPosts,
@@ -65,6 +66,15 @@ const router = createBrowserRouter([
                     return redirect(`/posts/${params.id}/comments`);
                   }
                 );
+              });
+            },
+          },
+          {
+            path: "/posts/:id/comments/:commentId/destroy",
+            element: <LeaveComment />,
+            action({ params }) {
+              return deleteComment(params.commentId).then(() => {
+                return redirect(`/posts/${params.id}/comments`);
               });
             },
           },
