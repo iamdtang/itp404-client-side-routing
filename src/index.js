@@ -23,6 +23,7 @@ import Post from "./routes/Post";
 import Comments from "./routes/Post/Comments";
 import LeaveComment from "./routes/Post/LeaveComment";
 import EditPost from "./routes/EditPost";
+import { toast } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
               return request.formData().then((formData) => {
                 return saveComment(formData.get("comment"), params.id).then(
                   () => {
+                    toast.success("Your comment was successfully posted.");
                     return redirect(`/posts/${params.id}/comments`);
                   }
                 );
@@ -76,6 +78,7 @@ const router = createBrowserRouter([
             element: <LeaveComment />,
             action({ params }) {
               return deleteComment(params.commentId).then(() => {
+                toast.success("Your comment was successfully deleted.");
                 return redirect(`/posts/${params.id}/comments`);
               });
             },
@@ -97,6 +100,10 @@ const router = createBrowserRouter([
               },
               params.id
             ).then(() => {
+              toast.success(
+                `You have successfully updated the post
+                "${formData.get("title")}".`
+              );
               return redirect(`/posts/${params.id}`);
             });
           });
