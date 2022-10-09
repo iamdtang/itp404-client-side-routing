@@ -12,6 +12,9 @@ export default function PostCard(props) {
         <Link to={`/posts/${props.post.id}`} className="card-link">
           Read
         </Link>
+        <Link to={`/posts/${props.post.id}/edit`} className="card-link">
+          Edit
+        </Link>
       </div>
     </div>
   );

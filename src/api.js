@@ -39,6 +39,21 @@ export function saveComment(comment, postId) {
   });
 }
 
+export function updatePost(attributes, postId) {
+  return fetch(
+    `https://json-server-posts-api.herokuapp.com/api/posts/${postId}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(attributes),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+}
+
 export function deleteComment(commentId) {
   return fetch(
     `https://json-server-posts-api.herokuapp.com/api/comments/${commentId}`,
