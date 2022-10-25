@@ -12,10 +12,8 @@ export default function Comments() {
             <li key={comment.id}>
               {comment.body}
 
-              <Form
-                method="post"
-                action={`/posts/${params.id}/comments/${comment.id}/destroy`}
-              >
+              <Form method="post" action={`/comments/${comment.id}/destroy`}>
+                <input type="hidden" name="postId" value={params.id} />
                 <button type="submit" className="btn btn-danger btn-sm">
                   Delete
                 </button>

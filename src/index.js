@@ -69,16 +69,18 @@ const router = createBrowserRouter([
               });
             },
           },
-          {
-            path: "/posts/:id/comments/:commentId/destroy",
-            element: <LeaveComment />,
-            action({ params }) {
-              return deleteComment(params.commentId).then(() => {
-                return redirect(`/posts/${params.id}/comments`);
-              });
-            },
-          },
         ],
+      },
+      {
+        path: "/comments/:commentId/destroy",
+        element: <LeaveComment />,
+        action({ request, params }) {
+          return request.formData().then((formData) => {
+            return deleteComment(params.commentId).then(() => {
+              return redirect(`/posts/${formData.get("postId")}/comments`);
+            });
+          });
+        },
       },
     ],
   },
